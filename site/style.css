@@ -1,0 +1,367 @@
+/* ==========================================================================
+   Tokens — the design decision's own numbers (design.md), copied verbatim.
+   fg on bg  ~= 15.1:1   accent on bg ~= 10.2:1   (both computed, both AA)
+   ========================================================================== */
+:root {
+  --bg: #0e1013;
+  --fg: #e7e5e0;
+  --accent: #f0b429;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1.05rem;
+  --text-lg: 1.3rem;
+  --text-xl: clamp(2rem, 5vw, 3.2rem);
+  --text-2xl: clamp(2.8rem, 9vw, 6.5rem);
+
+  --space-1: 0.4rem;
+  --space-2: 0.8rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 7rem;
+
+  --measure: 50ch;
+
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   Reset / base
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* keeps the scroll track from reserving layout width */
+}
+html::-webkit-scrollbar { width: 0; height: 0; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: var(--text-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, p, ul, li, figure { margin: 0; padding: 0; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+p { max-width: var(--measure); }
+
+.section-inner {
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+section[id] { scroll-margin-top: var(--space-5); }
+
+/* ==========================================================================
+   Nav — fixed, follows the visitor, knows where they are
+   ========================================================================== */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid color-mix(in srgb, var(--fg) 12%, var(--bg));
+}
+.brand {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s var(--ease);
+}
+.brand:hover { color: color-mix(in srgb, var(--fg) 75%, var(--bg)); }
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+.nav-links a {
+  font-size: var(--text-sm);
+  padding-block: var(--space-1);
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.nav-links a:hover {
+  color: color-mix(in srgb, var(--fg) 75%, var(--bg));
+  border-bottom-color: color-mix(in srgb, var(--fg) 35%, var(--bg));
+}
+.nav-links a.is-active { color: var(--accent); }
+
+/* ==========================================================================
+   Hero — the compressed entry point. One display-scale event, nothing else.
+   ========================================================================== */
+#hero {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-block: var(--space-6);
+}
+#hero .section-inner { width: 100%; }
+.kicker {
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--fg) 62%, var(--bg));
+  margin-bottom: var(--space-3);
+}
+#hero h1 {
+  font-size: var(--text-2xl);
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  max-width: 18ch;
+}
+#hero p {
+  font-size: var(--text-lg);
+  margin-top: var(--space-4);
+  color: color-mix(in srgb, var(--fg) 88%, var(--bg));
+}
+
+/* ==========================================================================
+   Section headings — shared rhythm
+   ========================================================================== */
+section[id] { padding-block: var(--space-6); }
+h2 {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-4);
+}
+.section-hint {
+  font-size: var(--text-sm);
+  color: color-mix(in srgb, var(--fg) 60%, var(--bg));
+  margin-top: calc(-1 * var(--space-3));
+  margin-bottom: var(--space-4);
+}
+
+/* ==========================================================================
+   About
+   ========================================================================== */
+#about { background: color-mix(in srgb, var(--bg) 92%, var(--fg) 8%); }
+#about .prose { font-size: var(--text-lg); }
+
+/* ==========================================================================
+   Projects — compress first, expand on interaction
+   ========================================================================== */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.card {
+  border: 1px solid color-mix(in srgb, var(--fg) 14%, var(--bg));
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--bg) 94%, var(--fg) 6%);
+  transition: border-color 0.2s var(--ease), transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+.card:hover {
+  border-color: color-mix(in srgb, var(--fg) 30%, var(--bg));
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px color-mix(in srgb, var(--bg) 55%, transparent);
+}
+.card-title { font-size: var(--text-base); }
+.card-toggle {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3);
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 14px;
+  transition: background 0.2s var(--ease);
+}
+.card-toggle:hover {
+  background: color-mix(in srgb, var(--fg) 5%, transparent);
+}
+.card-name {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  flex: 1 1 20ch;
+}
+.metric {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--text-xs);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-2);
+  line-height: 1.4;
+}
+.chevron {
+  flex: 0 0 auto;
+  width: 1em;
+  height: 1em;
+  margin-inline-start: auto;
+  border-right: 2px solid color-mix(in srgb, var(--fg) 55%, var(--bg));
+  border-bottom: 2px solid color-mix(in srgb, var(--fg) 55%, var(--bg));
+  transform: rotate(45deg);
+  transition: transform 0.3s var(--ease);
+}
+.card.is-open .chevron { transform: rotate(-135deg); }
+
+.card-panel {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding-inline: var(--space-3);
+  transition: max-height 0.3s var(--ease), opacity 0.3s var(--ease),
+    padding-block 0.3s var(--ease);
+}
+.card.is-open .card-panel {
+  max-height: 60rem;
+  opacity: 1;
+  padding-block: 0 var(--space-3);
+}
+.card-panel .lede {
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+.card-panel p + p { margin-top: var(--space-2); }
+
+/* ==========================================================================
+   Skills — a set reads as a set
+   ========================================================================== */
+#skills { background: color-mix(in srgb, var(--bg) 92%, var(--fg) 8%); }
+.skill-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+.skill-group {
+  border: 1px solid color-mix(in srgb, var(--fg) 12%, var(--bg));
+  border-radius: 12px;
+  padding: var(--space-3);
+}
+.skill-group h3 {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--fg) 65%, var(--bg));
+  margin-bottom: var(--space-2);
+}
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+.chip-list li {
+  font-size: var(--text-sm);
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid color-mix(in srgb, var(--fg) 16%, var(--bg));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg) 96%, var(--fg) 4%);
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.chip-list li:hover {
+  border-color: color-mix(in srgb, var(--fg) 40%, var(--bg));
+  background: color-mix(in srgb, var(--fg) 6%, transparent);
+}
+
+/* ==========================================================================
+   Contact
+   ========================================================================== */
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 100%;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  padding-block: var(--space-1);
+  border-bottom: 1px solid color-mix(in srgb, var(--fg) 30%, var(--bg));
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease),
+    transform 0.2s var(--ease);
+}
+.contact-link:hover {
+  border-color: var(--fg);
+  transform: translateX(4px);
+}
+.contact-link svg { flex: 0 0 auto; }
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer {
+  padding-block: var(--space-4);
+  text-align: center;
+}
+.site-footer p {
+  max-width: none;
+  font-size: var(--text-xs);
+  color: color-mix(in srgb, var(--fg) 55%, var(--bg));
+}
+.site-footer a {
+  border-bottom: 1px solid color-mix(in srgb, var(--fg) 35%, var(--bg));
+  transition: color 0.2s var(--ease);
+}
+.site-footer a:hover { color: var(--accent); }
+
+/* ==========================================================================
+   Focus — never removed, never silent
+   ========================================================================== */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   Responsive — collapsed state is already the right shape for a phone
+   ========================================================================== */
+@media (max-width: 640px) {
+  :root { --measure: 34ch; }
+  nav { padding: var(--space-2) var(--space-3); }
+  .nav-links { gap: var(--space-2); }
+  .section-inner { padding-inline: var(--space-3); }
+  section[id] { padding-block: var(--space-5); }
+  .card-name { flex-basis: 100%; }
+  .metric { flex-basis: 100%; }
+  .card-toggle { padding: var(--space-3) var(--space-2); }
+  .contact-link { font-size: var(--text-base); gap: var(--space-1); }
+}
+
+/* ==========================================================================
+   Motion is optional
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

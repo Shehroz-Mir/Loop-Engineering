@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muhammad Shehroz Mir — Generative AI Developer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav aria-label="Primary">
+  <a class="brand" href="#hero" aria-label="Back to top">MSM</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <section id="hero">
+    <div class="section-inner">
+      <span class="kicker">compress → reconstruct</span>
+      <h1>Muhammad Shehroz Mir</h1>
+      <p>Generative AI Developer — building and deploying generative models across text and image domains.</p>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-inner">
+      <h2>About</h2>
+      <p class="prose">I'm Muhammad Shehroz Mir, a Generative AI Developer at AirCod Technologies, where I've been designing, training, and deploying generative models across text and image domains since joining as an AI/ML Engineer in June 2023. Day to day that means working hands-on with GPT-family LLMs, VAEs, and GANs — fine-tuning language models for new domains, and building retrieval-augmented and agentic systems that go into production rather than stopping at a notebook. A good part of that work comes down to a single question asked from different angles: how much of a model can you take away — through LoRA, quantization, distillation — before it stops doing its job. Underneath all of it is a deep-learning foundation in PyTorch, Hugging Face, and TensorFlow, and a habit of tracking and rebuilding whatever the field publishes next, so the tools I reach for stay current instead of freezing at whatever I first learned.</p>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-inner">
+      <h2>Projects</h2>
+      <p class="section-hint">Every card compresses to a title and one metric — open one for the full reconstruction.</p>
+
+      <div class="cards">
+
+        <article class="card">
+          <h3 class="card-title">
+            <button type="button" class="card-toggle" aria-expanded="false" aria-controls="panel-1">
+              <span class="card-name">Generative Image Modeling — GANs &amp; VAEs</span>
+              <span class="metric">Fraud detection evaluated via ROC-AUC, precision/recall &amp; cost-benefit analysis</span>
+              <span class="chevron" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="card-panel" id="panel-1">
+            <p class="lede">Two generative architectures built from scratch — then repurposed to catch fraud.</p>
+            <p>Two different ways of teaching a network to model a distribution rather than just a mapping. I implemented the generator and discriminator halves of a GAN from scratch in both PyTorch and TensorFlow, training them to generate MNIST digits and CIFAR-10 images, and separately built a Variational Autoencoder — reparameterization trick included — to learn a compressed latent space that could reconstruct those same images. A VAE that reconstructs the familiar well also reveals the unfamiliar: I extended that same reconstruction-error signal to credit-card transaction data, scoring each transaction by how badly it reconstructed and evaluating the resulting fraud-detection approach with ROC-AUC, precision/recall, and cost-benefit analysis rather than accuracy alone.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3 class="card-title">
+            <button type="button" class="card-toggle" aria-expanded="false" aria-controls="panel-2">
+              <span class="card-name">LLM Fine-Tuning &amp; Cross-Domain Adaptation</span>
+              <span class="metric">74.48% cross-domain macro F1 at 2.5M trainable params — +3.06 pts over LLM4HAR (KDD 2025)</span>
+              <span class="chevron" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="card-panel" id="panel-2">
+            <p class="lede">Adapting frozen LLM backbones to a new domain — and beating a published benchmark doing it.</p>
+            <p>Fully fine-tuning a large language model for a new domain is expensive and usually unnecessary, so I kept three different backbones frozen — GPT-2, Qwen2.5, and Llama-3.2 — and instead trained a Conv1D encoder in front of each one, selectively unfreezing only the layers that needed to adapt and aligning the frozen model to the new domain through a two-stage alignment pre-training process. To separate what actually mattered from what merely seemed plausible, I ran a four-level ablation across four datasets, checked against 256 evaluation pairs each time. The best configuration reached 74.48% cross-domain macro F1 using only 2.5M trainable parameters, beating the published LLM4HAR (KDD 2025) benchmark by 3.06 points.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3 class="card-title">
+            <button type="button" class="card-toggle" aria-expanded="false" aria-controls="panel-3">
+              <span class="card-name">Model Compression &amp; Optimization of Transformers</span>
+              <span class="metric">~99.7% reduction in trainable parameters (LoRA)</span>
+              <span class="chevron" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="card-panel" id="panel-3">
+            <p class="lede">Shrinking BERT-family models three different ways — and keeping the performance.</p>
+            <p>BERT-family models carry far more trainable weight than most fine-tuning jobs actually need, so I attacked that from three separate angles. LoRA fine-tuning cut the trainable-parameter count by roughly 99.7% while leaving the rest of the model frozen; dynamic quantization shrank the models by about 58% and made inference roughly 28% faster; and knowledge distillation compressed a larger BERT-family teacher into a smaller student that still reached 89.76% accuracy. Three techniques, one underlying question: how much of a transformer can you remove before it stops doing its job?</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3 class="card-title">
+            <button type="button" class="card-toggle" aria-expanded="false" aria-controls="panel-4">
+              <span class="card-name">Generative NLP &amp; Applied ML</span>
+              <span class="metric">98.19% accuracy · 99.78% ROC-AUC (tabular classification)</span>
+              <span class="chevron" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="card-panel" id="panel-4">
+            <p class="lede">Three applied models, three shapes of data — text similarity, road signs, tabular records.</p>
+            <p>Three smaller, applied projects, each built around a different shape of data. I built a content-based recommender system that compares items using TF-IDF vectors, embeddings, and cosine similarity rather than relying on user history; trained a YOLOv8 object-detection model on the TT100K traffic-sign dataset, reaching a mAP@0.5 of 0.796; and built a tabular classification model over a 100,000-record dataset that reached 98.19% accuracy and a 99.78% ROC-AUC. None of the three shares an architecture with the others, which was the point — applied machine learning is usually about picking the right small tool for the data in front of you, not reusing the same big one everywhere.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-inner">
+      <h2>Skills</h2>
+      <ul class="skill-groups">
+
+        <li class="skill-group">
+          <h3>Generative AI</h3>
+          <ul class="chip-list">
+            <li>LLMs (GPT, Claude, Gemini, Qwen, Llama, Mistral)</li>
+            <li>VAEs</li>
+            <li>GANs</li>
+          </ul>
+        </li>
+
+        <li class="skill-group">
+          <h3>Deep Learning</h3>
+          <ul class="chip-list">
+            <li>PyTorch</li>
+            <li>TensorFlow</li>
+            <li>Keras</li>
+            <li>Hugging Face</li>
+          </ul>
+        </li>
+
+        <li class="skill-group">
+          <h3>Model training</h3>
+          <ul class="chip-list">
+            <li>CNNs</li>
+            <li>RNNs</li>
+            <li>Transformers</li>
+            <li>fine-tuning (LoRA/PEFT)</li>
+            <li>quantization</li>
+            <li>knowledge distillation</li>
+          </ul>
+        </li>
+
+        <li class="skill-group">
+          <h3>Experimentation</h3>
+          <ul class="chip-list">
+            <li>Experiment design</li>
+            <li>ablation studies</li>
+            <li>model validation</li>
+            <li>benchmarking</li>
+          </ul>
+        </li>
+
+        <li class="skill-group">
+          <h3>LLM Ecosystem</h3>
+          <ul class="chip-list">
+            <li>LangChain</li>
+            <li>LangGraph</li>
+            <li>LlamaIndex</li>
+            <li>OpenAI/Anthropic libraries</li>
+            <li>MCP</li>
+          </ul>
+        </li>
+
+        <li class="skill-group">
+          <h3>Vector databases</h3>
+          <ul class="chip-list">
+            <li>Milvus</li>
+            <li>FAISS</li>
+            <li>ChromaDB</li>
+          </ul>
+        </li>
+
+        <li class="skill-group">
+          <h3>Deployment</h3>
+          <ul class="chip-list">
+            <li>AWS</li>
+            <li>Docker</li>
+            <li>FastAPI</li>
+          </ul>
+        </li>
+
+        <li class="skill-group">
+          <h3>Languages</h3>
+          <ul class="chip-list">
+            <li>Python</li>
+            <li>SQL</li>
+            <li>Bash</li>
+          </ul>
+        </li>
+
+        <li class="skill-group">
+          <h3>Tools</h3>
+          <ul class="chip-list">
+            <li>Git</li>
+            <li>Langfuse</li>
+            <li>LiteLLM</li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-inner">
+      <h2>Contact</h2>
+      <p class="prose">Reach out — happy to talk about generative models, compression tricks, or anything above.</p>
+      <ul class="contact-links">
+        <li>
+          <a class="contact-link" href="mailto:shehrosemir2000@gmail.com">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 6-10 7L2 6"></path></svg>
+            shehrosemir2000@gmail.com
+          </a>
+        </li>
+        <li>
+          <a class="contact-link" href="https://linkedin.com/in/shehrozmir" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6Z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            linkedin.com/in/shehrozmir
+          </a>
+        </li>
+        <li>
+          <a class="contact-link" href="tel:+923364229762">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"></path></svg>
+            +92-336-4229762
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Compressed to one page. <a href="#hero">Back to top ↑</a></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

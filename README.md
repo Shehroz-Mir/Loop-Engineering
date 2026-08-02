@@ -1,4 +1,15 @@
-# Build your portfolio — from a spec
+# Loop Engineering
+
+**Loop engineering** replaces turn-by-turn prompting with a condition an agent works
+toward on its own: you write down what "done" means — a spec, part provable by a script,
+part judged by a reviewer — and a loop keeps going until that condition holds, not until
+the agent feels finished. The craft isn't in the code the loop produces; it's in the
+spec, because a loop is only ever as good as what you told it to prove.
+
+This repo is a hands-on exercise in that discipline, using the smallest thing everyone
+already has an opinion about: a personal portfolio site.
+
+## Build your portfolio — from a spec
 
 You are going to build a personal portfolio website. You are not going to write it by hand,
 and you are not going to prompt an agent turn by turn until it looks okay. You are going to
